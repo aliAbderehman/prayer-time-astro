@@ -43,19 +43,17 @@ function formatTime(time24) {
 }
 
 function updateUI(data, coords) {
-  const name = Object.keys(data.data.timings).slice(0, 7);
-
   const prayerNames = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 
-  // console.log(name);
-  // const time = Object.values(data.data.timings);
-  //   cont time
+  const prayerTimes = {};
 
   prayerNames.forEach((name) => {
-    // console.log(i);
     const time = data.data.timings[name];
     renderPrayerTime(name, formatTime(time));
+    prayerTimes[name] = time;
   });
+
+  upcomingPrayerTimer(prayerTimes);
 
   updateDate(data.data.date.hijri, data.data.date.readable);
   renderLocationName(coords);
@@ -72,6 +70,10 @@ function renderPrayerTime(name, time) {
 }
 
 // TODO: handle count down upcoming prayer
+
+function upcomingPrayerTimer(prayerTime) {
+  console.log(prayerTime);
+}
 
 function updateDate(hijri, date) {
   const formattedhijri = `${hijri.day} ${hijri.month.en}, ${hijri.year}`;
